@@ -5,6 +5,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.rmi.RemoteException;
@@ -96,6 +98,39 @@ public class ChatPanel extends JPanel{
 		GestionBouton gest_b = new GestionBouton();
 		optionBox.getDecoButton().addActionListener(gest_b);
 		sendButton.addActionListener(gest_b);
+		writtingArea.addKeyListener(new KeyListener(){
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				if(e.getKeyCode()==KeyEvent.VK_ENTER)
+				{
+					try {
+						
+						String message = "<" + application.getUser().getUserName() + ">" + writtingArea.getText();
+						application.getUser().getChannel().MessageDistribution(message);
+						writtingArea.setText("");
+						
+					} catch (RemoteException e1) {
+						e1.printStackTrace();
+						displayArea.display("Message error : not transmitted");
+					};
+				}
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
 	}
 	
 	private class GestionBouton implements ActionListener{

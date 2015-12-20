@@ -37,6 +37,10 @@
  */
 package ClientSide;
 
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.rmi.RemoteException;
+
 import javax.swing.JFrame;
 
 import ServerSide.Server;
@@ -64,6 +68,7 @@ public class ClientApp extends JFrame {
 		setVisible(true);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.addWindowListener(new MyWindowListener());
 	}
 	
     public static void main(String[] args) {
@@ -93,4 +98,57 @@ public class ClientApp extends JFrame {
 	
     //:::::::::::::::::::::::::::::::::::
 
+	private class MyWindowListener implements WindowListener{
+
+		@Override
+		public void windowOpened(WindowEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void windowClosing(WindowEvent e) {
+			// TODO Auto-generated method stub
+			try {
+				if(user!=null){
+					user.Logout();
+				}
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+
+		@Override
+		public void windowClosed(WindowEvent e) {
+			// TODO Auto-generated method stub
+			System.exit(0);
+		}
+
+		@Override
+		public void windowIconified(WindowEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void windowDeiconified(WindowEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void windowActivated(WindowEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void windowDeactivated(WindowEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	}
 }
+
